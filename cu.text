@@ -1,0 +1,142 @@
+import sys
+from PyQt5 import QtCore,QtGui, QtWidgets
+from PyQt5.QtCore import pyqtSlot, QFile, QTextStream
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import *
+import cv2
+from matplotlib import pyplot as plt
+from PIL import Image, ImageTk
+
+
+from source_code.resizeimg import resize_image
+from ui.interface_demo import Ui_MainWindow
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        self.img = None
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.ui.new_width_input = self.ui.new_width
+        self.ui.new_height_input = self.ui.new_height
+        self.ui.icon_only_frame.hide()
+        self.ui.stackedWidget.setCurrentIndex(0)
+        self.ui.file_btn.setChecked(True)
+        self.ui.Resize_btn_full.clicked.connect(lambda: self.Resize_clicked_func)
+        self.ui.file_btn_full.clicked.connect(self.linkto)
+        self.ui.Histogram_btn_full.clicked.connect(self.histogram)
+        self.ui.Contrast_btn_full.clicked.connect(self.Constrast_fc)
+
+    def Resize_clicked_func(self):
+        new_width = int(self.ui.new_width_input.text())
+        new_height = int(self.ui.new_height_input.text())
+        resize_image(self, new_width, new_height, self.img, self.ui.label_resize)
+
+        # def open_file_btn(self):
+        #     self.ui.file_btn.clicked.connect(self.linkto)
+
+        # Function for resizing image
+
+        # self.ui.Color_btn_full.clicked.connect(self.Color_fc)
+
+        
+
+        #Function for changing page to user page
+        def on_user_btn_clicked(self):
+            self.ui.stackedWidget.setCurrentIndex(8)
+        #pages
+        self.ui.file_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page))    
+        self.ui.file_btn_full.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page))   
+        self.ui.Resize_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_2))    
+        self.ui.Resize_btn_full.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_2))   
+        self.ui.Color_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_3))   
+        self.ui.Color_btn_full.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_3))   
+        self.ui.Contrast_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_4))    
+        self.ui.Contrast_btn_full.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_4))   
+        self.ui.Histogram_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_5))    
+        self.ui.Histogram_btn_full.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_5))   
+        self.ui.insertimg_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_6))    
+        self.ui.insertimg_btn_full.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_6))   
+        self.ui.Cut_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_7))    
+        self.ui.Cut_btn_full.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_7))   
+        self.ui.Delate_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_8))    
+        self.ui.Delate_btn_full.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_8))   
+        self.ui.collage_btn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_9))    
+        self.ui.collage_btn_full.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_9)) 
+        self.img_path = None
+    #find path
+    def linkto(self):
+        link = QFileDialog.getOpenFileName(filter='*.jpg *.jpeg *.png')
+        self.img_path = link[0]
+        self.ui.file_label.setPixmap(QPixmap(link[0]))
+        self.ui.stackedWidget.setCurrentWidget(self.ui.page)
+        self.img = cv2.imread(self.img_path, 1)
+    
+    def Constrast_fc(self):
+        clip_hist_percent = 20
+        gray = cv2.cvtColor(self.img,cv2.COLOR_BGR2GRAY)
+
+        hist = cv2.calcHist([gray], [0], None, [256], [0,256])
+        hist_size = len(hist)
+        accumulator = [float(hist[0].item())]
+        for index in range(1, hist_size):
+            
+            accumulator.append(accumulator[index - 1] + float(hist[index].item()))
+        maximum = accumulator[-1]
+        clip_hist_percent*=(maximum/100.0)
+        clip_hist_percent/=2.0
+        minimum_gray = 0
+        while accumulator[minimum_gray] < clip_hist_percent:
+            minimum_gray += 1
+        maximum_gray = hist_size - 1
+        while accumulator[maximum_gray] >= (maximum - clip_hist_percent):
+            maximum_gray -= 1
+        alpha = 255/(maximum_gray - minimum_gray)
+        beta = -minimum_gray * alpha
+
+        contrast_img = cv2.convertScaleAbs(self.img, alpha = alpha, beta = beta)
+        qpixmap = QPixmap.fromImage(QtGui.QImage(contrast_img.data, contrast_img.shape[1], contrast_img.shape[0], QtGui.QImage.Format_RGB888))
+        print(qpixmap.size)
+        self.ui.contrast_label.setPixmap(qpixmap)
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    #def histogram
+    def histogram(self):
+        if self.img_path :
+            image = cv2.imread(self.img_path, cv2.IMREAD_GRAYSCALE)
+            plt.figure("Histogram")
+            plt.hist(image.ravel(), 256, [0, 256])
+            plt.title("Histogram")
+            plt.xlabel("Pixel Value")
+            plt.ylabel("Frequency")
+            plt.show()
+              
+        
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    ## loading style file, Example 2
+    style_file = QFile("resources/style.qss")
+    style_file.open(QFile.ReadOnly | QFile.Text)
+    style_stream = QTextStream(style_file)
+    app.setStyleSheet(style_stream.readAll())
+
+
+    window = MainWindow()
+    window.show()
+
+    sys.exit(app.exec())
