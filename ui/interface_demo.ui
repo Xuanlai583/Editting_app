@@ -271,7 +271,7 @@ color: rgb(255, 255, 255);</string>
             <item>
              <widget class="QStackedWidget" name="stackedWidget">
               <property name="currentIndex">
-               <number>6</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="page">
                <widget class="QLabel" name="file_label">
@@ -318,7 +318,7 @@ color: rgb(255, 255, 255);</string>
                  </rect>
                 </property>
                 <property name="text">
-                 <string>500</string>
+                 <string/>
                 </property>
                 <property name="placeholderText">
                  <string>nhập chiều cao</string>
@@ -334,7 +334,7 @@ color: rgb(255, 255, 255);</string>
                  </rect>
                 </property>
                 <property name="text">
-                 <string>500</string>
+                 <string/>
                 </property>
                 <property name="placeholderText">
                  <string>nhập chiều rộng</string>

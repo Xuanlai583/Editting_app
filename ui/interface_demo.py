@@ -150,9 +150,11 @@ class Ui_MainWindow(object):
         self.resize_label.setObjectName("resize_label")
         self.new_width = QtWidgets.QLineEdit(self.page_2)
         self.new_width.setGeometry(QtCore.QRect(30, 0, 113, 22))
+        self.new_width.setText("")
         self.new_width.setObjectName("new_width")
         self.new_height = QtWidgets.QLineEdit(self.page_2)
         self.new_height.setGeometry(QtCore.QRect(180, 0, 113, 22))
+        self.new_height.setText("")
         self.new_height.setObjectName("new_height")
         self.stackedWidget.addWidget(self.page_2)
         self.page_3 = QtWidgets.QWidget()
@@ -499,7 +501,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(6)
+        self.stackedWidget.setCurrentIndex(1)
         self.Equalizer_btn.toggled['bool'].connect(self.frame_9.setVisible) # type: ignore
         self.Menu_button_2.toggled['bool'].connect(self.icon_only_frame.setVisible) # type: ignore
         self.Editing_btn.toggled['bool'].connect(self.frame_10.setVisible) # type: ignore
@@ -531,9 +533,7 @@ class Ui_MainWindow(object):
         self.Menu_button_2.setText(_translate("MainWindow", "Menu"))
         self.label.setText(_translate("MainWindow", "the original image"))
         self.resize_label.setText(_translate("MainWindow", "ảnh resize"))
-        self.new_width.setText(_translate("MainWindow", "500"))
         self.new_width.setPlaceholderText(_translate("MainWindow", "nhập chiều cao"))
-        self.new_height.setText(_translate("MainWindow", "500"))
         self.new_height.setPlaceholderText(_translate("MainWindow", "nhập chiều rộng"))
         self.color_label.setText(_translate("MainWindow", "ảnh color"))
         self.histogram_label.setText(_translate("MainWindow", "histogram"))

@@ -7,7 +7,5 @@ def load_image(self):
     if img_path:
         img = cv2.imread(img_path, 1)
         (h, w, d) = img.shape
-        print("width={}, height={}, depth{}".format(w, h, d))
-        img_path_editting = img_path
+        self.img_path_editting = img_path
         return img_path, img
-    return None, None

@@ -49,3 +49,15 @@ def adjust_color(self, hue, saturation, brightness):
     self.img_path_editting ='test.jpg'
 
     self.ui.color_label.setPixmap(QPixmap("test.jpg"))
+#ap dung keo dan tuyen tinh    
+def contrast2(self):
+    image = cv2.imread(self.img_path, cv2.IMREAD_GRAYSCALE)
+
+    min_val = np.min(image)
+    max_val = np.max(image)
+
+    stretched_image = ((image - min_val)/(max_val - min_val)* 255).astype(np.uint8)
+
+    cv2.imwrite("test.jpg", stretched_image)
+    self.img_path_editting = "test.jpg"
+    self.ui.contrast_label.setPixmap(QPixmap("test.jpg"))

@@ -11,7 +11,7 @@ import numpy as np
 from modules.navigation import setup_navigation
 from source_code.resizeimg import resize_image
 from modules.file_handling import load_image
-from source_code.image_processing import apply_contrast, show_histogram, adjust_color
+from source_code.image_processing import apply_contrast,contrast2, show_histogram, adjust_color
 from source_code.insert_image import insert_image
 from source_code.crop import CropWindow
 from ui.interface_demo import Ui_MainWindow
@@ -23,10 +23,6 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
 
         self.ui.setupUi(self)
-        self.ui.new_width_input = self.ui.new_width
-        self.ui.new_height_input = self.ui.new_height
-        self.ui.new_width_insert = self.ui.insert_width
-        self.ui.new_height_insert = self.ui.insert_height
         self.ui.icon_only_frame.hide()
         self.ui.stackedWidget.setCurrentIndex(0)
         self.ui.file_btn.setChecked(True)
@@ -52,8 +48,19 @@ class MainWindow(QMainWindow):
         self.crop_end = None
 
     def resize_image(self):
-        new_width = int(self.ui.new_width_input.text())
-        new_height = int(self.ui.new_height_input.text())
+        new_width_text = self.ui.new_width.text()
+        new_height_text = self.ui.new_height.text()
+
+        # Sử dụng kích thước gốc nếu người dùng chưa nhập giá trị
+        if new_width_text == '':
+            new_width = self.img.shape[1]
+        else:
+            new_width = int(new_width_text)
+
+        if new_height_text == '':
+            new_height = self.img.shape[0]
+        else:
+            new_height = int(new_height_text)
         resize_image(self, new_width, new_height, self.img)
 
     def load_image(self):
@@ -63,7 +70,7 @@ class MainWindow(QMainWindow):
             self.ui.stackedWidget.setCurrentWidget(self.ui.page)
 
     def apply_contrast(self):
-        apply_contrast(self)
+        contrast2(self)
 
     def show_histogram(self):
         show_histogram(self, self.img_path_editting)
