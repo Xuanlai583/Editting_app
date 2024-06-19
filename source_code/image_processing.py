@@ -61,3 +61,28 @@ def contrast2(self):
     cv2.imwrite("test.jpg", stretched_image)
     self.img_path_editting = "test.jpg"
     self.ui.contrast_label.setPixmap(QPixmap("test.jpg"))
+def contrast3(self):
+    image =cv2.imread(self.img_path, cv2.IMREAD_GRAYSCALE)
+
+    equalizer_img = cv2.equalizeHist(image)
+
+    cv2.imwrite("test.jpg", equalizer_img)
+    self.img_path_editting = "test.jpg"
+    self.ui.contrast_label.setPixmap(QPixmap("test.jpg"))
+def constrast4(self):
+    image = cv2.imread(self.img_path, cv2.IMREAD_GRAYSCALE)
+
+    #chuan hoa gia tri pixel de tranh gia tri log cua 0
+    normalized_image = image/ 255.0
+
+    #tinh c
+    c = 255/ np.log(1 + np.max(normalized_image))
+    log_transformed_image = c * np.log(1 + normalized_image)
+
+    #chuẩn hoá lại pixel về khoảng[0, 255]
+    log_transformed_image = np.uint8(log_transformed_image * 255)
+
+    cv2.imwrite("test.jpg", log_transformed_image)
+    self.img_path_editting = "test.jpg"
+    self.ui.contrast_label.setPixmap(QPixmap("test.jpg"))
+

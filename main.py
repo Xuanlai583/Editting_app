@@ -11,7 +11,7 @@ import numpy as np
 from modules.navigation import setup_navigation
 from source_code.resizeimg import resize_image
 from modules.file_handling import load_image
-from source_code.image_processing import apply_contrast,contrast2, show_histogram, adjust_color
+from source_code.image_processing import apply_contrast,constrast4,contrast3,contrast2, show_histogram, adjust_color
 from source_code.insert_image import insert_image
 from source_code.crop import CropWindow
 from ui.interface_demo import Ui_MainWindow
@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
             self.ui.stackedWidget.setCurrentWidget(self.ui.page)
 
     def apply_contrast(self):
-        contrast2(self)
+        constrast4(self)
 
     def show_histogram(self):
         show_histogram(self, self.img_path_editting)
