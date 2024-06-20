@@ -207,7 +207,7 @@ class Ui_MainWindow(object):
         self.page_7.setObjectName("page_7")
         self.cut_label = QtWidgets.QLabel(self.page_7)
         self.cut_label.setGeometry(QtCore.QRect(30, 20, 611, 561))
-        self.cut_label.setScaledContents(True)
+        self.cut_label.setScaledContents(False)
         self.cut_label.setObjectName("cut_label")
         self.stackedWidget.addWidget(self.page_7)
         self.page_8 = QtWidgets.QWidget()
@@ -501,7 +501,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(6)
         self.Equalizer_btn.toggled['bool'].connect(self.frame_9.setVisible) # type: ignore
         self.Menu_button_2.toggled['bool'].connect(self.icon_only_frame.setVisible) # type: ignore
         self.Editing_btn.toggled['bool'].connect(self.frame_10.setVisible) # type: ignore

@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import QtCore,QtGui, QtWidgets
-from PyQt5.QtCore import pyqtSlot, QFile, QTextStream
+from PyQt5.QtCore import pyqtSlot, QFile, QTextStream,QPoint,Qt, QRect
 from PyQt5.QtGui import QPixmap,QPainter,QPen
 from PyQt5.QtWidgets import *
 import cv2
@@ -13,7 +13,7 @@ from source_code.resizeimg import resize_image
 from modules.file_handling import load_image
 from source_code.image_processing import apply_contrast,constrast4,contrast3,contrast2, show_histogram, adjust_color
 from source_code.insert_image import insert_image
-from source_code.crop import CropWindow
+from source_code.crop import ImageCropper
 from ui.interface_demo import Ui_MainWindow
 
 class MainWindow(QMainWindow):
@@ -46,6 +46,10 @@ class MainWindow(QMainWindow):
         self.img_path_editting = None
         self.crop_start = None
         self.crop_end = None
+        self.start_point = QPoint()
+        self.end_point = QPoint()
+        self.drawing = False
+        self.rect = QRect()
 
     def resize_image(self):
         new_width_text = self.ui.new_width.text()
@@ -93,10 +97,15 @@ class MainWindow(QMainWindow):
         insert_image(self,self.img,object_path,insert_height,insert_width)
 
     def crop_image(self):
-                self.setWindowTitle("Crop Image")
-                self.crop_window = CropWindow(self)
-                self.setCentralWidget(self.crop_window)
+        if self.img_path:
+            self.crop_cropper = ImageCropper(self.img_path)
+            cropped_image = self.crop_cropper.crop_image()
+
+            if cropped_image is not None:
+                cv2.imwrite("test.jpg", cropped_image)
                 self.ui.cut_label.setPixmap(QPixmap("test.jpg"))
+            else:
+                print("No region selected for cropping") 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
