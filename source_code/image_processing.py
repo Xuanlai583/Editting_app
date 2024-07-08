@@ -3,6 +3,8 @@ from PyQt5.QtGui import QPixmap, QImage, QColor
 from matplotlib import pyplot as plt
 from source_code.resizeimg import resize_image
 import numpy as np
+
+
 def apply_contrast(self):
     clip_hist_percent = 20
     gray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
