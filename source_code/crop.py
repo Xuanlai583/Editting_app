@@ -60,6 +60,7 @@ if __name__ == "__main__":
 
     if cropped_image is not None:
         cv2.imwrite("cropped_image.jpg", cropped_image)
+        self.ui.resize_label.setPixmap(QPixmap("test.jpg"))
         print("Cropped image saved as 'cropped_image.jpg'")
     else:
         print("No region selected for cropping")

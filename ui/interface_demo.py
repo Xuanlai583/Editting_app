@@ -194,6 +194,7 @@ class Ui_MainWindow(object):
         self.page_6.setObjectName("page_6")
         self.insertimg_label = QtWidgets.QLabel(self.page_6)
         self.insertimg_label.setGeometry(QtCore.QRect(10, 40, 651, 531))
+        self.insertimg_label.setMaximumSize(QtCore.QSize(16777213, 16777215))
         self.insertimg_label.setScaledContents(False)
         self.insertimg_label.setObjectName("insertimg_label")
         self.insert_height = QtWidgets.QLineEdit(self.page_6)
@@ -432,6 +433,15 @@ class Ui_MainWindow(object):
         self.Contrast_btn_full.setAutoExclusive(True)
         self.Contrast_btn_full.setObjectName("Contrast_btn_full")
         self.verticalLayout_6.addWidget(self.Contrast_btn_full)
+        self.contrast1 = QtWidgets.QPushButton(self.equalizer_frame)
+        self.contrast1.setObjectName("contrast1")
+        self.verticalLayout_6.addWidget(self.contrast1)
+        self.contrast2 = QtWidgets.QPushButton(self.equalizer_frame)
+        self.contrast2.setObjectName("contrast2")
+        self.verticalLayout_6.addWidget(self.contrast2)
+        self.contrast3 = QtWidgets.QPushButton(self.equalizer_frame)
+        self.contrast3.setObjectName("contrast3")
+        self.verticalLayout_6.addWidget(self.contrast3)
         self.Histogram_btn_full = QtWidgets.QPushButton(self.equalizer_frame)
         self.Histogram_btn_full.setIcon(icon9)
         self.Histogram_btn_full.setIconSize(QtCore.QSize(24, 24))
@@ -501,7 +511,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(6)
+        self.stackedWidget.setCurrentIndex(8)
         self.Equalizer_btn.toggled['bool'].connect(self.frame_9.setVisible) # type: ignore
         self.Menu_button_2.toggled['bool'].connect(self.icon_only_frame.setVisible) # type: ignore
         self.Editing_btn.toggled['bool'].connect(self.frame_10.setVisible) # type: ignore
@@ -548,6 +558,9 @@ class Ui_MainWindow(object):
         self.Resize_btn_full.setText(_translate("MainWindow", "Resize"))
         self.Color_btn_full.setText(_translate("MainWindow", "Color"))
         self.Contrast_btn_full.setText(_translate("MainWindow", "Contrast"))
+        self.contrast1.setText(_translate("MainWindow", "Contrast1"))
+        self.contrast2.setText(_translate("MainWindow", "Contrast2"))
+        self.contrast3.setText(_translate("MainWindow", "Contrast3"))
         self.Histogram_btn_full.setText(_translate("MainWindow", "Histogram"))
         self.Editting_btn_full.setText(_translate("MainWindow", "Editing"))
         self.insertimg_btn_full.setText(_translate("MainWindow", "insert img"))

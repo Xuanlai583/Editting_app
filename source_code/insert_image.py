@@ -2,8 +2,6 @@ import cv2
 from PyQt5.QtGui import QPixmap, QImage
 import numpy as np
 
-import cv2
-from PyQt5.QtGui import QPixmap
 
 def insert_image(self, img, insert_img_path, x, y):
     insert_img = cv2.imread(insert_img_path, cv2.IMREAD_GRAYSCALE)

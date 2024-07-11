@@ -14,6 +14,8 @@ from modules.file_handling import load_image
 from source_code.image_processing import apply_contrast,contrast4,contrast3,contrast2, show_histogram, adjust_color
 from source_code.insert_image import insert_image
 from source_code.crop import ImageCropper
+from source_code.collage_img import conllage
+from source_code.delete import initialize_image, setup_window, process_image
 from ui.interface_demo import Ui_MainWindow
 
 class MainWindow(QMainWindow):
@@ -35,6 +37,11 @@ class MainWindow(QMainWindow):
         self.ui.Color_btn_full.clicked.connect(self.apply_color)
         self.ui.insertimg_btn_full.clicked.connect(self.insert_object)
         self.ui.Cut_btn_full.clicked.connect(self.crop_image)
+        self.ui.collage_btn_full.clicked.connect(self.conllagefc)
+        self.ui.Delate_btn_full.clicked.connect(self.deletefc)
+        self.ui.contrast1.clicked.connect(self.contrast1fc)
+        self.ui.contrast2.clicked.connect(self.contrast2fc)
+        self.ui.contrast3.clicked.connect(self.contrast4fc)
 
          # Connect color adjustment sliders to the function
         self.ui.hue_slider.valueChanged.connect(self.update_color)
@@ -77,6 +84,13 @@ class MainWindow(QMainWindow):
     def apply_contrast(self):
         apply_contrast(self)
 
+    def contrast1fc(self):
+        contrast2(self)
+    def contrast2fc(self):
+        contrast3(self)
+    def contrast4fc(self):
+        contrast4(self)
+
     def show_histogram(self):
         show_histogram(self, self.img_path_editting)
 
@@ -107,6 +121,16 @@ class MainWindow(QMainWindow):
                 self.ui.cut_label.setPixmap(QPixmap("test.jpg"))
             else:
                 print("No region selected for cropping") 
+    def conllagefc(self):
+        img_conllage = QFileDialog.getOpenFileName(filter='*.jpg *.jpeg *.png')
+        conllage_link = img_conllage[0]
+        conllage(self,self.img,conllage_link) 
+    def deletefc(self):
+        if self.img_path:
+            image_path = self.img_path
+            initialize_image(image_path)
+            setup_window()
+            process_image()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

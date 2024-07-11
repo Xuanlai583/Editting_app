@@ -271,7 +271,7 @@ color: rgb(255, 255, 255);</string>
             <item>
              <widget class="QStackedWidget" name="stackedWidget">
               <property name="currentIndex">
-               <number>5</number>
+               <number>8</number>
               </property>
               <widget class="QWidget" name="page">
                <widget class="QLabel" name="file_label">
@@ -1075,6 +1075,27 @@ color: rgb(255, 255, 255);</string>
                    </property>
                    <property name="autoExclusive">
                     <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="contrast1">
+                   <property name="text">
+                    <string>Contrast1</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="contrast2">
+                   <property name="text">
+                    <string>Contrast2</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="contrast3">
+                   <property name="text">
+                    <string>Contrast3</string>
                    </property>
                   </widget>
                  </item>

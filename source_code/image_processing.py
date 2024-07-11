@@ -63,6 +63,8 @@ def contrast2(self):
     cv2.imwrite("test.jpg", stretched_image)
     self.img_path_editting = "test.jpg"
     self.ui.contrast_label.setPixmap(QPixmap("test.jpg"))
+
+# sử dụng equalizeHist    
 def contrast3(self):
     image =cv2.imread(self.img_path, cv2.IMREAD_GRAYSCALE)
 

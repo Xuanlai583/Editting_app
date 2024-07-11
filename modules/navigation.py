@@ -17,3 +17,6 @@ def setup_navigation(ui):
     ui.Delate_btn_full.clicked.connect(lambda: ui.stackedWidget.setCurrentWidget(ui.page_8))
     ui.collage_btn.clicked.connect(lambda: ui.stackedWidget.setCurrentWidget(ui.page_9))
     ui.collage_btn_full.clicked.connect(lambda: ui.stackedWidget.setCurrentWidget(ui.page_9))
+    ui.contrast1.clicked.connect(lambda: ui.stackedWidget.setCurrentWidget(ui.page_4))
+    ui.contrast2.clicked.connect(lambda: ui.stackedWidget.setCurrentWidget(ui.page_4))
+    ui.contrast3.clicked.connect(lambda: ui.stackedWidget.setCurrentWidget(ui.page_4))
